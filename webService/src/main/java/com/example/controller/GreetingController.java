@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GreetingController {
 
 	@GetMapping("")
-	public String greeting(Map<String,Object> model) {
+	public String greeting(Map<String, Object> model) {
 
 		return "greeting";
 	}

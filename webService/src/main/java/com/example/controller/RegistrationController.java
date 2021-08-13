@@ -13,27 +13,27 @@ import com.example.repository.UserRepository;
 
 @Controller
 public class RegistrationController {
-	@Autowired 
+	@Autowired
 	UserRepository userRepository;
-	
+
 	@GetMapping("/registration")
 	public String registration() {
 		return "registration";
 	}
+
 	@PostMapping("/registration")
-		public String addUser(User user, Map<String, Object> model) {
+	public String addUser(User user, Map<String, Object> model) {
 		User userDB = userRepository.findByUsername(user.getUsername());
-		if(userDB!=null) {
-			model.put ("message", "User exists!");
+		if (userDB != null) {
+			model.put("message", "User exists!");
 			return "registration";
 		}
-		
+
 		user.setActive(true);
 		user.setRoles(Collections.singleton(Role.USER));
 		userRepository.save(user);
 
 		return "redirect:/login";
 	}
-	
 
 }
