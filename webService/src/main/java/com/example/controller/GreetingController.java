@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 //@RestController
 public class GreetingController {
 
-	@GetMapping("/greeting")
-	public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-			Map<String,Object> model) {
-		model.put("name", name);
+	@GetMapping("")
+	public String greeting(Map<String,Object> model) {
+
 		return "greeting";
 	}
 

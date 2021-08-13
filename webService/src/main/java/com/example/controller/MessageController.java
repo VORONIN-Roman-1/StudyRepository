@@ -21,13 +21,13 @@ public class MessageController {
 	
 	@Autowired MessageRepository messageRepository;
 	
-	@GetMapping 
+	@GetMapping ("/main")
 	public String getMessage(Map<String,Object> model) {
 		Iterable<Message> messages = messageRepository.findAll();
 		model.put("messages", messages);
 		return "main";
 	}
-	@PostMapping 
+	@PostMapping ("main")
 	public String postMessage(@RequestParam String text, @RequestParam String tag, Map<String, Object >model) {
 		Message message = new Message (text, tag);
 		messageRepository.save(message);
