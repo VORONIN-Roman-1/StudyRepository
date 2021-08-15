@@ -34,22 +34,22 @@ public class MessageController {
 
 	@PostMapping("main")
 	public String postMessage(@AuthenticationPrincipal User user, @RequestParam String text, @RequestParam String tag,
-			Map<String, Object> model) {
+			Model model) {
 		Message message = new Message(text, tag, user);
 		messageRepository.save(message);
 		Iterable<Message> messages = messageRepository.findAll();
-		model.put("messages", messages);
+		model.addAttribute("messages", messages);
 		return "main";
 	}
 
 	@PostMapping("filter")
-	public String postFilter(@RequestParam String filter, Map<String, Object> model) {
+	public String postFilter(@RequestParam String filter, Model model) {
 		Iterable<Message> messages;
 		if (filter != null && !filter.isEmpty())
 			messages = messageRepository.findByTag(filter);
 		else
 			messages = messageRepository.findAll();
-		model.put("messages", messages);
+		model.addAttribute("messages", messages);
 		return "main";
 	}
 
