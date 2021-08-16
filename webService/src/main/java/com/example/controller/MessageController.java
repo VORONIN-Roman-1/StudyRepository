@@ -25,10 +25,16 @@ public class MessageController {
 	@Autowired
 	MessageRepository messageRepository;
 
-	@GetMapping("/main")
-	public String getMessage(Map<String, Object> model) {
-		Iterable<Message> messages = messageRepository.findAll();
-		model.put("messages", messages);
+	@GetMapping("main")
+	public String getMessage(@RequestParam(required = false) String filter, Model model) {
+		Iterable<Message> messages;
+		if (filter != null && !filter.isEmpty())
+			messages = messageRepository.findByTag(filter);
+		else 
+			messages = messageRepository.findAll();
+
+		model.addAttribute("messages", messages);
+		model.addAttribute("filter", filter);
 		return "main";
 	}
 
@@ -41,16 +47,4 @@ public class MessageController {
 		model.addAttribute("messages", messages);
 		return "main";
 	}
-
-	@PostMapping("filter")
-	public String postFilter(@RequestParam String filter, Model model) {
-		Iterable<Message> messages;
-		if (filter != null && !filter.isEmpty())
-			messages = messageRepository.findByTag(filter);
-		else
-			messages = messageRepository.findAll();
-		model.addAttribute("messages", messages);
-		return "main";
-	}
-
 }
