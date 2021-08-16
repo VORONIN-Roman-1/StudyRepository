@@ -24,10 +24,10 @@
 	<div>
 
 		<form method="get">
-			<input type="text" name="filter" value="${filter!""}"  placeholder="Tag />
+			<input type="text" name="filter" value="${filter!""}"  placeholder="Tag" />
 			<button type="submit">Filtrer</button>
 			<input type="hidden" name="_csrf" value="${_csrf.token}" />
 		</form>
 	</div>
-
+ <a href="/user"> Edit Users</a>
 </@c.page>
