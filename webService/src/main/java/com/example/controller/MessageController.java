@@ -32,7 +32,7 @@ public class MessageController {
 	@Autowired
 	MessageRepository messageRepository;
 	@Value("${upload.path}")
-	String uploadPath;
+	private String uploadPath;
 	@GetMapping
 	public String getMessage(@RequestParam(required = false) String filter, Model model) {
 		Iterable<Message> messages;
@@ -53,15 +53,15 @@ public class MessageController {
 			@RequestParam String tag, Model model,
 			@RequestParam("file") MultipartFile file) throws  IOException {
 		Message message = new Message(text, tag, user);
-		if (file!=null) {
+		if (file != null && !file.getOriginalFilename().isEmpty()) {
 			File uploadDir = new File(uploadPath);
 			if (!uploadDir.exists()) {
 				uploadDir.mkdir();
 			}
 			String uuidFile = UUID.randomUUID().toString();
-			String resultFileName= uuidFile+ "."+ file.getOriginalFilename();
-			file.transferTo(new File(resultFileName));
-			message.setFilename(resultFileName);
+			String resultFilename= uuidFile+ "."+ file.getOriginalFilename();
+			file.transferTo(new File(uploadPath +"/"+ resultFilename));
+			message.setFilename(resultFilename);
 			
 		}
 		messageRepository.save(message);

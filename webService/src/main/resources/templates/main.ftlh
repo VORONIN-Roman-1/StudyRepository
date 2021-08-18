@@ -13,6 +13,14 @@
 			<input type="hidden" name="_csrf" value="${_csrf.token}" />
 		</form>
 	</div>
+	<div>
+
+		<form method="get">
+			<input type="text" name="filter" value="${filter?ifExists}"  placeholder="Tag" />
+			<button type="submit">Filtrer</button>
+			<input type="hidden" name="_csrf" value="${_csrf.token}" />
+		</form>
+	</div>
 	<div>List messages</div>
 
 	<#list messages as message>
@@ -28,13 +36,6 @@
 		</div>
 	</div>
 	<#else> No message </#list>
-	<div>
-
-		<form method="get">
-			<input type="text" name="filter" value="${filter?ifExists}"  placeholder="Tag" />
-			<button type="submit">Filtrer</button>
-			<input type="hidden" name="_csrf" value="${_csrf.token}" />
-		</form>
-	</div>
+	
  <a href="/user"> Edit Users</a>
 </@c.page>
